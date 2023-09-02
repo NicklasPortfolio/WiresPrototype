@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
@@ -92,7 +84,7 @@ namespace WiresPrototype
 
                     else if (wires.Colors.Last() == "yellow" && !wires.Colors.Any(color => color.Equals("red")))
                     {
-                        SpeechOut("Cut the last wire.");
+                        SpeechOut("Cut the first wire.");
                     }
 
                     else if (wires.Colors.Count(color => color.Equals("blue")) == 1)
@@ -106,6 +98,48 @@ namespace WiresPrototype
                     }
 
                     else { SpeechOut("Cut the second wire."); }
+                    break;
+
+                case 5:
+                    if (wires.Colors.Last() == "black" && wires.Digit % 2 == 1)
+                    {
+                        SpeechOut("Cut the fourth wire");
+                    }
+
+                    else if (wires.Colors.Count(color => color.Equals("red")) == 1 && wires.Colors.Count(color => color.Equals("yellow")) > 1)
+                    {
+                        SpeechOut("Cut the first wire");
+                    }
+
+                    else if (!wires.Colors.Exists(color => color.Equals("black")))
+                    {
+                        SpeechOut("Cut the second wire");
+                    }
+
+                    else { SpeechOut("Cut the first wire"); }
+                    break;
+
+                case 6:
+                    if (!wires.Colors.Exists(color => color.Equals("yellow")) && wires.Digit % 2 == 1)
+                    {
+                        SpeechOut("Cut the third wire");
+                    }
+
+                    else if (wires.Colors.Count(color => color.Equals("yellow")) == 1 && wires.Colors.Count(color => color.Equals("white")) > 1)
+                    {
+                        SpeechOut("Cut the fourth wire");
+                    }
+
+                    else if (!wires.Colors.Exists(color => color.Equals("red")))
+                    {
+                        SpeechOut("Cut the last wire");
+                    }
+
+                    else { SpeechOut("Cut the fourth wire"); }
+                    break;
+
+                default:
+                    SpeechOut("Incorrect amount of wires");
                     break;
             }
         }
